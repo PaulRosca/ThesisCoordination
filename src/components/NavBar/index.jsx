@@ -1,14 +1,46 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+function getBackgroundColor() {
+  if (window.location.href.includes('thesis-coordination')) {
+    return 'bg-blue-500'
+  }
+  else if (window.location.href.includes('practice-stage')) {
+    return 'bg-blue-800'
+  }
+  return 'bg-indigo-800'
+}
+
+function getRefClassName(path) {
+  if (window.location.href.includes(path)) {
+    return "inline-flex items-center border-b-2 border-white px-1 pt-1 text-sm font-medium text-white hover:cursor-pointer"
+  }
+  else {
+    return "inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-300 hover:border-white hover:text-white hover:cursor-pointer"
+  }
+}
+
+function getButtonClassName(path) {
+  if (window.location.href.includes(path)) {
+    return "block border-l-4 border-white bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-blue-500"
+  }
+  else {
+    return "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-white hover:border-white"
+  }
+}
+
 export default function NavBar({ userData, setUserData }) {
+
+  const navigate = useNavigate()
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+    <Disclosure as="nav" className={getBackgroundColor() + " shadow"}>
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -19,20 +51,20 @@ export default function NavBar({ userData, setUserData }) {
                     userData && (
                       <>
                         <a
-                          href="#"
-                          className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                          onClick={() => navigate('/thesis-coordination')}
+                          className={getRefClassName('thesis-coordination')}
                         >
                           Coordonarea lucrarii
                         </a>
                         <a
-                          href="#"
-                          className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                          onClick={() => navigate('/practice-stage/news')}
+                          className={getRefClassName('practice-stage')}
                         >
                           Stagiu practic
                         </a>
                         <a
-                          href="#"
-                          className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                          onClick={() => navigate('/chat')}
+                          className={getRefClassName('chat')}
                         >
                           Chat
                         </a>
@@ -64,6 +96,21 @@ export default function NavBar({ userData, setUserData }) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {
+                        userData.type === 'profesor' && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href="#"
+                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                onClick={() => navigate('/profile')}
+                              >
+                                Profil
+                              </a>
+                            )}
+                          </Menu.Item>
+                        )
+                      }
                       <Menu.Item>
                         {({ active }) => (
                           <a
@@ -81,7 +128,7 @@ export default function NavBar({ userData, setUserData }) {
               </div>
               <div className="-mr-2 flex items-center sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-white hover:cursor-pointer focus:outline-none">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -100,22 +147,22 @@ export default function NavBar({ userData, setUserData }) {
                   <>
                     <Disclosure.Button
                       as="a"
-                      href="#"
-                      className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+                      onClick={() => navigate('/thesis-coordination')}
+                      className={getButtonClassName('thesis-coordination')}
                     >
                       Coordonarea lucrarii
                     </Disclosure.Button>
                     <Disclosure.Button
                       as="a"
-                      href="#"
-                      className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                      onClick={() => navigate('/practice-stage/news')}
+                      className={getButtonClassName('practice-stage')}
                     >
                       Stagiu practic
                     </Disclosure.Button>
                     <Disclosure.Button
                       as="a"
-                      href="#"
-                      className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                      onClick={() => navigate('/chat')}
+                      className={getButtonClassName('chat')}
                     >
                       Chat
                     </Disclosure.Button>
@@ -136,18 +183,28 @@ export default function NavBar({ userData, setUserData }) {
                         />
                       </div>
                       <div className="ml-3">
-                        <div className="text-base font-medium text-gray-800">{userData.lastName + ' ' + userData.firstName}</div>
-                        <div className="text-sm font-medium text-gray-500">{userData.email}</div>
+                        <div className="text-base font-medium text-white">{userData.lastName + ' ' + userData.firstName}</div>
+                        <div className="text-sm font-medium text-white">{userData.email}</div>
                       </div>
                     </>
                   )
                 }
               </div>
               <div className="mt-3 space-y-1">
+                {
+                  userData.type === 'profesor' && (
+                    <Disclosure.Button
+                      as="a"
+                      className="block px-4 py-2 text-base font-medium text-white hover:bg-white hover:text-blue-500"
+                      onClick={() => navigate('/profile')}
+                    >
+                      Profil
+                    </Disclosure.Button>
+                  )
+                }
                 <Disclosure.Button
                   as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                  className="block px-4 py-2 text-base font-medium text-white hover:bg-white hover:text-blue-500"
                   onClick={() => setUserData(null)}
                 >
                   Deconectati-va

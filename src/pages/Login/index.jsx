@@ -1,21 +1,39 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function LogIn({ setUserData }) {
   const [email, setEmail] = useState('')
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
     console.log("HERE")
     e.preventDefault();
-    if(email === 'student@gmail.com') {
+    if(email.includes('student')) {
       setUserData({
         lastName: 'Rosca',
-        fistName: 'Paul',
+        firstName: 'Paul',
         email,
         type: 'student'
       })
     }
+    else if(email.includes('profesor')) {
+      setUserData({
+        lastName: 'Pop',
+        firstName: 'Alina',
+        email,
+        title: 'Dr.',
+        type: 'profesor',
+        description: 'Cercetare in domeniul X, Y si Z'
+      })
+    }
+    else if(email.includes('admin')) {
+      setUserData({
+        type: 'admin'
+      })
+    }
+    navigate('/thesis-coordination')
   }
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-10">
+      <div className="flex min-h-full flex-1 flex-col px-6 py-12 lg:px-8 mt-10">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" onSubmit={handleSubmit}>
             <div>
@@ -58,7 +76,6 @@ export default function LogIn({ setUserData }) {
                 />
               </div>
             </div>
-
             <div>
               <button
                 type="submit"
