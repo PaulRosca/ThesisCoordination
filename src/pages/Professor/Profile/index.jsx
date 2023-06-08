@@ -7,8 +7,8 @@ export default function Profile({ professor: { title, firstName, lastName, descr
   const [localLastName, setLocalLastName] = useState(lastName)
   const [localDescription, setLocalDescription] = useState(description)
   return (
-    <div className="my-10 px-10 h-full">
-      <Card className="h-full">
+    <div className="my-10 px-10 h-full flex flex-col items-center">
+      <Card className="h-1/2 w-3/4 lg:w-1/2">
         <div className="flex">
           <div>
             <select
@@ -20,6 +20,8 @@ export default function Profile({ professor: { title, firstName, lastName, descr
               <option selected>Alege un titlu</option>
               <option value="Asist.">Asist.</option>
               <option value="Lect.">Lect.</option>
+              <option value="Conf.">Conf.</option>
+              <option value="Prof.">Prof.</option>
               <option value="Dr.">Dr.</option>
             </select>
           </div>

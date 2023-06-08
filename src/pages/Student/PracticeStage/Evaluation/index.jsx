@@ -14,14 +14,11 @@ export default function Evaluation() {
       <div className="flex justify-center mt-4">
         <div className="w-3/4">
           <Card>
-            <div className="font-bold">
-              Detalii evaluare
-            </div>
-            <div className="mt-4" style={{ height: '25rem' }}>
-              Criterii de evaluare
-            </div>
-            <div className="flex border-t-2 border-slate-400">
-              <div className="w-1/2 border-e-2 border-slate-400 font-bold px-2">
+            <div className="flex justify-between">
+              <div className="font-bold">
+                Detalii evaluare
+              </div>
+              <div className="font-bold px-2">
                 <div>
                   Nota sesiune normala
                 </div>
@@ -29,7 +26,7 @@ export default function Evaluation() {
                   4
                 </div>
               </div>
-              <div className="w-1/2 font-bold px-2">
+              <div className="font-bold px-2">
                 <div>
                   Nota sesiune de restante
                 </div>
@@ -37,6 +34,9 @@ export default function Evaluation() {
                   6
                 </div>
               </div>
+            </div>
+            <div className="mt-4" style={{ height: '25rem' }}>
+              Criterii de evaluare
             </div>
           </Card>
         </div>

@@ -9,12 +9,15 @@ const tabs = [
   { name: 'Evaluare', href: '/practice-stage/evaluation', current: false },
 ]
 
-function HomeworkCard({ homework: { title, deadline, description }, index, setHomeworks }) {
+function HomeworkCard({ homework: { title, deadline, description, weight }, index, setHomeworks }) {
   return (
     <Card>
       <div className="flex justify-between">
         <div className="font-bold">
           {title}
+        </div>
+        <div className="font-semibold text-gray-500">
+          Pondere: {weight}%
         </div>
         <div className="font-semibold text-gray-500">
           {deadline}
@@ -49,17 +52,20 @@ export default function Assignments() {
     {
       title: 'Tema 1',
       deadline: '25.05.2025',
-      description: 'Cerinta tema...'
+      description: 'Cerinta tema...',
+      weight: 25
     },
     {
       title: 'Tema 2',
       deadline: '15.06.2025',
-      description: 'Cerinta tema...'
+      description: 'Cerinta tema...',
+      weight: 25
     },
     {
       title: 'Tema 3',
       deadline: '20.06.2025',
-      description: 'Cerinta tema...'
+      description: 'Cerinta tema...',
+      weight: 50
     },
   ])
   return (
